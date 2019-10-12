@@ -1,1 +1,3 @@
-Copyrights 2019
+<footer>
+    Copyrights 2019
+</footer>

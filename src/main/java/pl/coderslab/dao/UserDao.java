@@ -45,12 +45,7 @@ public class UserDao {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setUserName(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setGroupId(resultSet.getInt("user_group_id"));
+                User user = setUser(new User(), resultSet);
                 resultSet.close();
                 return user;
             }
@@ -91,13 +86,7 @@ public class UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             User[] users = new User[0];
             while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setUserName(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setGroupId(resultSet.getInt("user_group_id"));
-                users = addToArray(user, users);
+                users = addToArray(setUser(new User(), resultSet), users);
             }
             resultSet.close();
             return users;
@@ -108,26 +97,28 @@ public class UserDao {
     }
 
     public List<User> findAllByGroupId(int userId) {
+        List<User> userList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_GROUP_ID)) {
-            List<User> userList = new ArrayList<>();
-            User user = new User();
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                user.setId(resultSet.getInt("id"));
-                user.setUserName(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setGroupId(resultSet.getInt("user_group_id"));
-                userList.add(user);
+                userList.add(setUser(new User(), resultSet));
             }
             resultSet.close();
-            return userList;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        return userList;
+    }
+
+    private User setUser(User user, ResultSet resultSet) throws SQLException {
+        user.setId(resultSet.getInt("id"));
+        user.setUserName(resultSet.getString("username"));
+        user.setEmail(resultSet.getString("email"));
+        user.setPassword(resultSet.getString("password"));
+        user.setGroupId(resultSet.getInt("user_group_id"));
+        return user;
     }
 
     private User[] addToArray(User user, User[] users) {
