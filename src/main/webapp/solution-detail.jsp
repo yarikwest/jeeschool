@@ -7,12 +7,13 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-
+<a href="<c:url value="/"/>">back</a>
+<h1>Opis rozwiązania</h1>
+<hr>
 <section>
-    <a href="<c:url value="/"/>">back</a>
     <p> ${solution.description}</p>
 </section>
-
+<hr>
 <jsp:include page="footer.jsp"/>
 </body>
 </html>
