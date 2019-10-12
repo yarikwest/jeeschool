@@ -122,6 +122,7 @@ public class SolutionDao {
                 setSolution(solution, resultSet);
                 solutionList.add(solution);
             }
+            resultSet.close();
             return solutionList;
 
         } catch (SQLException e) {
