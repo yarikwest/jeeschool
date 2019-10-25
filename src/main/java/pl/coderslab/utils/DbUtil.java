@@ -5,25 +5,33 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbUtil {
     private static DataSource dataSource;
 
     public static Connection getConnection() throws SQLException {
-        return getInstance().getConnection();
+        String url = System.getenv("CLEARDB_DATABASE_URL");
+        String user = System.getenv("CLEARDB_DATABASE_USER");
+        String pass = System.getenv("CLEARDB_DATABASE_PASS");
+        return DriverManager.getConnection(url, user, pass);
     }
 
-    private static DataSource getInstance() {
-        if (dataSource == null) {
-            try {
-                Context initContext = new InitialContext();
-                Context envContext = (Context) initContext.lookup("java:/comp/env");
-                dataSource = (DataSource) envContext.lookup("jdbc/school");
-            } catch (NamingException e) {
-                e.printStackTrace();
-            }
-        }
-        return dataSource;
-    }
+//    public static Connection getConnection() throws SQLException {
+//        return getInstance().getConnection();
+//    }
+//
+//    private static DataSource getInstance() {
+//        if (dataSource == null) {
+//            try {
+//                Context initContext = new InitialContext();
+//                Context envContext = (Context) initContext.lookup("java:/comp/env");
+//                dataSource = (DataSource) envContext.lookup("jdbc/school");
+//            } catch (NamingException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return dataSource;
+//    }
 }
