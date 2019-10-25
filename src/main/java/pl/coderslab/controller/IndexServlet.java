@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@WebServlet("/")
+@WebServlet("")
 public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -4,25 +4,41 @@
 <html>
 <head>
     <title>Groups</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="<c:url value="css/materialize.min.css"/>">
+    <link type="text/css" rel="stylesheet" href="<c:url value="css/style.css"/>">
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 
-<h1>Lista grup</h1>
+<h2>Lista grup</h2>
 <hr>
-<table border="1">
-    <tr>
-        <th>Nazwa grupy</th>
-        <th>Więcej</th>
-    </tr>
-    <c:forEach var="group" items="${groups}">
+<main>
+    <table class="striped centered container">
+        <thead>
         <tr>
-            <td>${group.name}</td>
-            <td><a href="<c:url value="/usersOfGroup?groupId=${group.id}"/>">użytkownicy</a></td>
+            <th>Nazwa grupy</th>
+            <th>Użytkownicy</th>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach var="group" items="${groups}">
+            <tr>
+                <td>${group.name}</td>
+                <td><a href="<c:url value="/usersOfGroup?groupId=${group.id}"/>"><i
+                        class="material-icons">visibility</i></a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</main>
 <hr>
 <jsp:include page="footer.jsp"/>
+
+<script type="text/javascript" src="<c:url value="js/jquery-3.4.1.slim.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="js/materialize.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="js/functions.js"/>"></script>
 </body>
 </html>

@@ -4,25 +4,44 @@
 <html>
 <head>
     <title>Groups</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="<c:url value="../css/materialize.min.css"/>">
+    <link type="text/css" rel="stylesheet" href="<c:url value="../css/style.css"/>">
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
-<h1>Zarządzanie grupami użytkowników</h1>
+<h2>Zarządzanie grupami użytkowników</h2>
 <hr>
-<p><a href="<c:url value="/adminPanel/addGroup"/>">Dodai nową</a></p>
-<table border="1">
-    <tr>
-        <th>Nazwa grupy</th>
-        <th>#</th>
-    </tr>
-    <c:forEach var="group" items="${groups}">
+<main>
+    <div class="add-button">
+        <a href="<c:url value="/adminPanel/addGroup"/>" class="btn-floating btn-large waves-effect waves-light red"><i
+                class="material-icons">add</i></a>
+    </div>
+    <table class="striped centered container">
+        <thead>
         <tr>
-            <td>${group.name}</td>
-            <td><a href="<c:url value="/adminPanel/editGroup?groupId=${group.id}"/>">Edytuj</a></td>
+            <th>Nazwa grupy</th>
+            <th>Edytuj</th>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach var="group" items="${groups}">
+            <tr>
+                <td>${group.name}</td>
+                <td><a href="<c:url value="/adminPanel/editGroup?groupId=${group.id}"/>"><i
+                        class="material-icons">edit</i></a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</main>
 <hr>
 <jsp:include page="../footer.jsp"/>
+
+<script type="text/javascript" src="<c:url value="../js/jquery-3.4.1.slim.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="../js/materialize.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="../js/functions.js"/>"></script>
 </body>
 </html>

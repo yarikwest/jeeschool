@@ -4,27 +4,47 @@
 <html>
 <head>
     <title>Exercises</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="<c:url value="../css/materialize.min.css"/>">
+    <link type="text/css" rel="stylesheet" href="<c:url value="../css/style.css"/>">
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
-<h1>Zarządzanie zadaniami</h1>
+<h2>Zarządzanie zadaniami</h2>
 <hr>
-<p><a href="<c:url value="/adminPanel/addExercise"/>">Dodai nowe</a></p>
-<table border="1">
-    <tr>
-        <th>Nazwa</th>
-        <th>Opis</th>
-        <th>#</th>
-    </tr>
-    <c:forEach var="exercise" items="${exercises}">
+<main>
+    <div class="add-button">
+        <a href="<c:url value="/adminPanel/addExercise"/>"
+           class="btn-floating btn-large waves-effect waves-light red"><i
+                class="material-icons">add</i></a>
+    </div>
+    <table class="striped centered container">
+        <thead>
         <tr>
-            <td>${exercise.title}</td>
-            <td>${exercise.description}</td>
-            <td><a href="<c:url value="/adminPanel/editExercise?id=${exercise.id}"/>">Edytuj</a></td>
+            <th>Nazwa</th>
+            <th>Opis</th>
+            <th>Edytuj</th>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach var="exercise" items="${exercises}">
+            <tr>
+                <td>${exercise.title}</td>
+                <td>${exercise.description}</td>
+                <td><a href="<c:url value="/adminPanel/editExercise?id=${exercise.id}"/>"><i
+                        class="material-icons">edit</i></a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</main>
 <hr>
 <jsp:include page="../footer.jsp"/>
+
+<script type="text/javascript" src="<c:url value="../js/jquery-3.4.1.slim.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="../js/materialize.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="../js/functions.js"/>"></script>
 </body>
 </html>
